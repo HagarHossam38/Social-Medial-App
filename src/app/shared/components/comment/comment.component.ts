@@ -52,6 +52,7 @@ export class CommentComponent {
           this.deleteCommentClicked = null;
           this.toastMessage = 'Comment deleted successfully!';
           this.hideToast = true;
+          this.commentsService.triggerRefresh();
 
           setTimeout(() => {
             this.toastMessage = '';
@@ -102,6 +103,7 @@ export class CommentComponent {
           // this.getAllComment();
           this.singleComment.content = res.data.comment.content;
           // console.log(res);
+          this.commentsService.triggerRefresh();
         }
       },
       error: (err) => {
