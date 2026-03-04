@@ -77,8 +77,8 @@ export class CreateCommentComponent implements OnInit {
           console.log(res);
           this.commentBody.setValue('');
           this.removePreviewImg();
-          this.commentsService.triggerRefresh();
           this.isCommentCreated = true;
+          this.commentsService.triggerRefresh();
 
         },
         error: (err) => {

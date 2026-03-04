@@ -14,7 +14,7 @@
     </div>
     <div class="space-y-2">
 
-        @if(postCommentsLenght!=0){
+        @if(postCommentsLenght!=0 || postComments.length!=0){
         @for (comment of postComments; track comment._id) {
         <app-comment [singleComment]="comment" [postID]="postId"></app-comment>
         }

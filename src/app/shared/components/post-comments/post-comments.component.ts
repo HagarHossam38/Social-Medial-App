@@ -31,24 +31,23 @@ export class PostCommentsComponent {
     });
   }
   getAllComment() {
-    if (this.postCommentsLenght != 0) {
-      this.iSCommentLoaded = false;
-      this.commentsService.getPostComments(this.postId).subscribe({
-        next: (res) => {
-          console.log(res);
-          if (res.success) {
-            this.postComments = res.data.comments;
-            this.iSCommentLoaded = true;
-          }
-
-        },
-        error: (err) => {
-          console.log(err);
+    this.iSCommentLoaded = false;
+    this.commentsService.getPostComments(this.postId).subscribe({
+      next: (res) => {
+        console.log(res);
+        if (res.success) {
+          this.postComments = res.data.comments;
           this.iSCommentLoaded = true;
         }
-      });
-    }
+
+      },
+      error: (err) => {
+        console.log(err);
+        this.iSCommentLoaded = true;
+      }
+    });
   }
+
 
 
 }
