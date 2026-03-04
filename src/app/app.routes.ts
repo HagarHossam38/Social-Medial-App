@@ -1,6 +1,5 @@
 import { Routes, CanActivateFn } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
-import { profile } from 'console';
 import { ProfileComponent } from './features/profile/profile.component';
 import { NotificationsComponent } from './features/notifications/notifications.component';
 import { NotFoundComponent } from './features/not-found/not-found.component';
@@ -10,8 +9,6 @@ import { LoginComponent } from './core/auth/login/login.component';
 import { RegisterComponent } from './core/auth/register/register.component';
 import { authGuard } from './core/guards/auth/auth-guard';
 import { noAuthGuard } from './core/guards/noAuth/no-auth-guard';
-import path from 'path';
-import { Component } from '@angular/core';
 import { PostDetailsComponent } from './features/post-details/post-details.component';
 import { SettingsComponent } from './features/settings/settings.component';
 
