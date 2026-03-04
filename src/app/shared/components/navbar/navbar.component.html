@@ -1,0 +1,54 @@
+<nav class="sticky w-full z-40 top-0 start-0 border-b border-slate-200/90 bg-white/95 backdrop-blur">
+    <div class="max-w-7xl mx-auto flex  items-center justify-between gap-2 px-2 py-1.5 sm:gap-3 sm:px-3">
+        <a href="pew" class="flex items-center gap-3">
+            <img src="/images/hagarRouteLogo.png" class="h-9 w-9 rounded-xl object-cover" alt="Route Logo" />
+            <span class="hidden sm:block self-center text-xl font-extrabold text-slate-900 whitespace-nowrap">Route
+                Posts</span>
+        </a>
+
+        <div id="nav-icons"
+            class="flex gap-1 overflow-x-auto rounded-2xl border border-slate-200 bg-slate-50/90 p-1 sm:px-1.5">
+            <a routerLink="/home" routerLinkActive="!text-[#1f6fe5] !hover:text-[#1f6fe5] bg-white"
+                class=" flex items-center gap-1.5 rounded-xl px-2.5 py-2 text-sm text-slate-600 font-extrabold transition  hover:bg-white/90 hover:text-slate-900 sm:gap-2 sm:px-3.5">
+                <i class="fa-regular fa-house"></i>
+                <span class="hidden sm:inline">Feed</span>
+            </a>
+            <a routerLink="/profile" routerLinkActive="!text-[#1f6fe5] !hover:text-[#1f6fe5] bg-white"
+                class=" flex items-center gap-1.5 rounded-xl px-2.5 py-2 text-sm text-slate-600 font-extrabold transition  hover:bg-white/90 hover:text-slate-900 sm:gap-2 sm:px-3.5">
+                <i class="fa-regular fa-user"></i>
+                <span class="hidden sm:inline">Profile</span>
+            </a>
+            <a routerLink="/notifications" routerLinkActive="!text-[#1f6fe5] !hover:text-[#1f6fe5] bg-white"
+                class=" flex items-center gap-1.5 rounded-xl px-2.5 py-2 text-sm text-slate-600 font-extrabold transition  hover:bg-white/90 hover:text-slate-900 sm:gap-2 sm:px-3.5">
+                <i class="fa-regular fa-comment"></i>
+                <span class="hidden sm:inline">Notifications</span>
+            </a>
+
+        </div>
+        <div #profileMenu class="relative">
+            <button
+                class="cursor-pointer flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-2 py-1.5 transition hover:bg-slate-100"
+                (click)="openProfileMenu()">
+                <img alt="pew" class="h-8 w-8 rounded-full object-cover" [src]="loggedInUser.photo">
+                <span
+                    class="hidden max-w-35 truncate text-slate-800 text-sm font-semibold  md:block">{{loggedInUser.name}}</span>
+                <i class="fa-solid fa-bars text-slate-500"></i>
+            </button>
+
+            @if (profileMenuOpen) {
+            <div class="absolute right-0 z-50 mt-2 w-52 rounded-xl border border-slate-200 bg-white p-2 shadow-lg">
+                <button routerLink="/profile" (click)="profileMenuOpen=false"
+                    class="cursor-pointer flex items-center gap-2 rounded-md w-full px-3 py-2 font-semibold text-sm text-slate-700 hover:bg-slate-100">
+                    <i class="fas fa-user"></i>Profile</button>
+                <button routerLink="/settings" (click)="profileMenuOpen=false"
+                    class="cursor-pointer flex items-center gap-2 rounded-md w-full px-3 py-2 font-semibold text-sm text-slate-700 hover:bg-slate-100">
+                    <i class="fas fa-cog"></i>Settings</button>
+                <div class="my-1 border-t border-slate-200"></div>
+                <button (click)="logout()" (click)="profileMenuOpen=false"
+                    class="cursor-pointer flex items-center gap-2 rounded-md w-full px-3 py-2 font-semibold text-sm text-rose-600 hover:bg-rose-50">Logout</button>
+            </div>
+            }
+        </div>
+
+    </div>
+</nav>

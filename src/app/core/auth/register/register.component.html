@@ -1,0 +1,199 @@
+<div class="flex mb-5 p-1  bg-slate-100 rounded-xl">
+    <button routerLink="/login" routerLinkActive="bg-white !text-[#00298d] shadow-sm"
+        class="w-full cursor-pointer py-2 rounded-lg text-sm font-extrabold text-slate-600 transition hover:text-slate-800">Login</button>
+    <button routerLink="/register" routerLinkActive="bg-white !text-[#00298d] shadow-sm"
+        class="w-full cursor-pointer py-2 rounded-lg text-sm font-extrabold text-slate-600 transition hover:text-slate-800">Register</button>
+</div>
+<h2 class="text-2xl font-extrabold text-slate-900">Create a new account</h2>
+<p class="text-sm text-slate-500 mt-1">It is quick and easy.</p>
+
+<form class="mt-5 space-y-3.5" [formGroup]="registerForm" (ngSubmit)="signUp()">
+    <!--Name-->
+    <div>
+        @let name=registerForm.get('name');
+        <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <i class="fa-regular fa-user text-[18px]"></i>
+            </span>
+            <input formControlName="name" type="text" name="name" id="name" placeholder="Full Name"
+                [class.border-rose-600]="name?.errors && isSubmitted"
+                [class.focus:border-rose-600!]="name?.errors && isSubmitted"
+                [class.border-slate-200]="!name?.errors || !isSubmitted"
+                [class.focus:border-[#00298d]]="!name?.errors || !isSubmitted"
+                class="w-full rounded-xl  py-3 pl-11 pr-4 text-sm text-slate-800 transition border border-slate-200  bg-slate-50  focus:bg-white focus:border-[#00298d] outline-none shadow-none ring-0">
+        </div>
+        @if(name?.errors && isSubmitted){
+
+        @if (name?.getError('required')) {
+        <p class="mt-1 text-rose-600 font-semibold text-xs">Full name is required.</p>
+        }
+        @if (name?.getError('minlength')) {
+        <p class="mt-1 text-rose-600 font-semibold text-xs">Name must be at least 2 characters.</p>
+        }
+
+        }
+
+    </div>
+
+    <!--User Name-->
+    <div>
+        @let userName=registerForm.get('username');
+        <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <i class="fa-solid fa-at text-[18px]"></i>
+            </span>
+            <input formControlName="username" type="text" name="username" id="username"
+                placeholder="Username (optional)" [class.border-rose-600]="userName?.errors && isSubmitted"
+                [class.focus:border-rose-600!]="userName?.errors && isSubmitted"
+                [class.border-slate-200]="!userName?.errors || !isSubmitted"
+                [class.focus:border-[#00298d]]="!userName?.errors || !isSubmitted"
+                class="w-full rounded-xl  py-3 pl-11 pr-4 text-sm text-slate-800 transition border border-slate-200  bg-slate-50  focus:bg-white focus:border-[#00298d] outline-none shadow-none ring-0">
+        </div>
+        @if(userName?.errors && isSubmitted &&
+        (userName?.getError('maxlength')||userName?.getError('minlength'))){
+        <p class="mt-1 text-rose-600 font-semibold text-xs">Username must be 3-30 chars (a-z, 0-9, _).</p>
+        }
+    </div>
+    <!--Email-->
+    @let email= registerForm.get('email');
+    <div>
+        <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <i class="fa-solid fa-at text-[18px]"></i>
+            </span>
+            <input formControlName="email" type="email" name="email" id="email" placeholder="Email address"
+                [class.border-rose-600]="email?.errors && isSubmitted"
+                [class.focus:border-rose-600!]="email?.errors && isSubmitted"
+                [class.border-slate-200]="!email?.errors || !isSubmitted"
+                [class.focus:border-[#00298d]]="!email?.errors || !isSubmitted"
+                class="w-full rounded-xl  py-3 pl-11 pr-4 text-sm text-slate-800 transition border border-slate-200  bg-slate-50  focus:bg-white focus:border-[#00298d] outline-none shadow-none ring-0">
+        </div>
+        @if(email?.errors && isSubmitted){
+        @if (email?.getError('required')) {
+        <p class="mt-1 text-rose-600 font-semibold text-xs">Email is required.</p>
+        }
+        @else if (email?.getError('email')) {
+        <p class="mt-1 text-rose-600 font-semibold text-xs">Please enter a valid email address.</p>
+        }}
+    </div>
+
+    <!--Gender-->
+    @let gender=registerForm.get('gender');
+    <div>
+        <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <i class="fa-solid fa-user-group  text-[18px]"></i>
+            </span>
+            <select name="gender" id="gender" formControlName="gender"
+                [class.border-rose-600]="gender?.errors && isSubmitted"
+                [class.focus:border-rose-600!]="gender?.errors && isSubmitted"
+                [class.border-slate-200]="!gender?.errors || !isSubmitted"
+                [class.focus:border-[#00298d]]="!gender?.errors || !isSubmitted"
+                class="w-full rounded-xl  py-3 pl-11 pr-4 text-sm text-slate-800 transition border border-slate-200  bg-slate-50  focus:bg-white focus:border-[#00298d] outline-none shadow-none ring-0">
+                <option value="" disabled>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        @if(gender?.errors&&isSubmitted&&gender?.getError('required'))
+        {
+        <p class="mt-1 text-rose-600 font-semibold text-xs">Gender is required.</p>
+        }
+    </div>
+
+    <!--date Of Birth-->
+    @let dateOfBirth=registerForm.get('dateOfBirth');
+
+    <div>
+        <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <i class="fa-regular fa-calendar text-[18px]"></i>
+            </span>
+            <input formControlName="dateOfBirth" type="date" name="dateOfBirth" id="dateOfBirth"
+                placeholder="Date of birth" [class.border-rose-600]="dateOfBirth?.errors && isSubmitted"
+                [class.focus:border-rose-600!]="dateOfBirth?.errors && isSubmitted"
+                [class.border-slate-200]="!dateOfBirth?.errors || !isSubmitted"
+                [class.focus:border-[#00298d]]="!dateOfBirth?.errors || !isSubmitted"
+                class="w-full rounded-xl  py-3 pl-11 pr-4 text-sm text-slate-800 transition border border-slate-200  bg-slate-50  focus:bg-white focus:border-[#00298d] outline-none shadow-none ring-0">
+        </div>
+        @if(dateOfBirth?.errors&&isSubmitted&&dateOfBirth?.getError('required')){
+        <p class="mt-1 text-rose-600 font-semibold text-xs">Date of birth is required.</p>
+        }
+
+    </div>
+    @let password=registerForm.get('password');
+    <!--Password-->
+    <div>
+        <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <i class="fa-solid fa-key text-[18px]"></i>
+            </span>
+            <input formControlName="password" type="password" name="password" id="password" placeholder="Password"
+                [class.border-rose-600]="password?.errors && isSubmitted"
+                [class.focus:border-rose-600!]="password?.errors && isSubmitted"
+                [class.border-slate-200]="!password?.errors || !isSubmitted"
+                [class.focus:border-[#00298d]]="!password?.errors || !isSubmitted"
+                class="w-full rounded-xl  py-3 pl-11 pr-4 text-sm text-slate-800 transition border border-slate-200  bg-slate-50  focus:bg-white focus:border-[#00298d] outline-none shadow-none ring-0">
+        </div>
+        @if (password?.errors&&isSubmitted) {
+        @if (password?.getError('required')) {
+        <p class="mt-1 text-rose-600 font-semibold text-xs">Password is required.</p>
+        }
+        @if (password?.getError('pattern')) {
+        <p class="mt-1 text-rose-600 font-semibold text-xs">Password must include uppercase, lowercase, number, and
+            special character.</p>
+        }
+        }
+
+    </div>
+    <!--RePassword-->
+    @let rePassword=registerForm.get('rePassword');
+
+    <div>
+        <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <i class="fa-solid fa-key text-[18px]"></i>
+            </span>
+            <input formControlName="rePassword" type="password" name="rePassword" id="rePassword"
+                placeholder="Confirm password" [class.border-rose-600]="rePassword?.errors && isSubmitted"
+                [class.focus:border-rose-600!]="rePassword?.errors && isSubmitted"
+                [class.border-slate-200]="!rePassword?.errors || !isSubmitted"
+                [class.focus:border-[#00298d]]="!rePassword?.errors || !isSubmitted"
+                class="w-full rounded-xl  py-3 pl-11 pr-4 text-sm text-slate-800 transition border border-slate-200  bg-slate-50  focus:bg-white focus:border-[#00298d] outline-none shadow-none ring-0">
+        </div>
+
+        @if (rePassword?.errors&&isSubmitted) {
+        @if (rePassword?.getError('required') ){
+        <p class="mt-1 text-rose-600 font-semibold text-xs">Please confirm your password.</p>
+        }
+        }
+        @else if (registerForm.getError('mismatch')) {
+        <p class="mt-1 text-rose-600 font-semibold text-xs">Passwords do not match.</p>
+        }
+    </div>
+    <button type="submit" [disabled]="isLoading" class="w-full  rounded-xl py-3 text-base font-extrabold cursor-pointer 
+        disabled:opacity-60 disabled:cursor-not-allowed 
+        text-white bg-[#00298d] transition hover:bg-[#001f6b]">
+
+        {{isLoading ?'Please Wait...':' Create New Account'}}
+        
+        @if(isLoading){
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        }
+    </button>
+
+    <!-- [disabled]="registerForm.invalid" -->
+    <!--API Messages -->
+    @if(apiErrorMessage){
+    <div class="bg-rose-50 border border-rose-200 rounded-xl px-4 py-2.5 text-rose-700 font-semibold text-sm">
+        {{apiErrorMessage}}.
+    </div>
+    }
+
+    @if (apiSuccessMessage) {
+    <div class="bg-green-50 border border-green-200 rounded-xl px-4 py-2.5 text-green-700 font-semibold text-sm">
+        {{apiSuccessMessage}}
+    </div>}
+
+
+</form>

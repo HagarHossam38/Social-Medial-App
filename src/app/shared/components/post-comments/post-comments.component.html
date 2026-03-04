@@ -1,0 +1,38 @@
+<div class="border-t border-slate-200 bg-[#f7f8fa] px-4 py-4">
+    <div class="rounded-xl mb-3 px-3 py-2 border border-slate-200 bg-white flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+            <p class="font-extrabold text-sm  text-slate-700">Comments</p>
+            <span
+                class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-[#e7f3ff] text-[#1877f2]">{{postComments.length??'0'}}</span>
+        </div>
+        <select name="commentsOptions" id="commentsOptions" class="cursor-pointer rounded-xl ps-3 pe-7 py-1.5 text-xs font-bold text-slate-700 
+            outline-none ring-[#1877f2]/20 border border-slate-200 bg-slate-50 
+            focus:border-[#1877f2] focus:bg-white focus:ring-2">
+            <option value="relevant">Most relevant</option>
+            <option value="newest">Newest</option>
+        </select>
+    </div>
+    <div class="space-y-2">
+
+        @if(postCommentsLenght!=0){
+        @for (comment of postComments; track comment._id) {
+        <app-comment [singleComment]="comment" [postID]="postId"></app-comment>
+        }
+        }
+        @else {
+        <div class="rounded-2xl border border-slate-200 bg-white px-4 py-8 text-center">
+            <div
+                class="mx-auto mb-3 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#eef3ff] text-[#1877f2]">
+                <i class="fa-solid fa-comment-slash"></i>
+            </div>
+            <p class="text-lg font-extrabold text-slate-800">No comments yet</p>
+            <p class="mt-1 text-sm font-medium text-slate-500">Be the first to comment.</p>
+        </div>
+        }
+
+    </div>
+    <div class="text-slate-600 font-semibold text-md
+ bg-white p-4 mx-auto  text-center rounded-2xl" [hidden]="iSCommentLoaded">Loading Commnents....</div>
+
+    <app-create-comment [postId]="postId"></app-create-comment>
+</div>

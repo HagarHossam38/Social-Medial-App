@@ -1,0 +1,113 @@
+<div class="space-y-5 sm:space-y-6">
+    @if(currentUser!=null){
+    <section
+        class="myProfile overflow-hidden rounded-2xl sm:rounded-[28px] border border-slate-200 bg-white shadow-[0_2px_10px_rgba(15,23,42,.06)]">
+        <div class="relative h-44 bg-[linear-gradient(112deg,#0f172a_0%,#1e3a5f_36%,#2b5178_72%,#5f8fb8_100%)] sm:h-52 lg:h-60"
+            [style.background-size]="isCoverImg ? 'cover' : null"
+            [style.background-position]="isCoverImg?'center center' : null"
+            [style.background-image]="isCoverImg? bgImage : null">
+
+            <div class="cover-buttons"></div>
+        </div>
+        <div class="relative -mt-12 px-3 pb-5 sm:-mt-16 sm:px-8 sm:pb-6">
+            <div class="rounded-3xl border border-white/60 bg-white/92 p-5  backdrop-blur-xl sm:p-7">
+                <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                    <div class="min-w-0">
+                        <div class="flex items-end gap-4">
+                            <div class="group/avatar relative shrink-0">
+                                <button class="myProfilePhoto cursor rounded-full " (click)="isImgModal=true">
+                                    <img [src]="currentUser.photo" [alt]="currentUser.name"
+                                        class="h-28 w-28 rounded-full border-4 border-white object-cover shadow-md ring-2 ring-[#dbeafe]">
+                                </button>
+                                <button (click)="isImgModal=true"
+                                    class="absolute bottom-1 left-1
+                                flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-white hover:bg-slate-50  border border-slate-200 shadow-sm
+                               transition duration-200 
+                               sm:opacity-0 sm:group-hover/avatar:opacity-100 sm:group-focus-within/avatar:opacity-100">
+                                    <i class="fa-solid fa-maximize text-[#1877f2] text-sm"></i></button>
+
+                                <label (click)="updateProfilePhoto()"
+                                    class="absolute bottom-1 right-1
+                                flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-[#1877f2] hover:bg-blue-500  border border-slate-200 shadow-sm
+                               transition duration-200 
+                               sm:opacity-0 sm:group-hover/avatar:opacity-100 sm:group-focus-within/avatar:opacity-100">
+                                    <i class="fa-regular fa-camera text-white"></i>
+                                    <input accept="image/*" class="hidden" type="file"></label>
+                            </div>
+                            <div class="min-w-0">
+                                <h2 class="text-2xl font-black text-slate-900 sm:text-4xl">{{currentUser.name}}</h2>
+                                <p class="mt-1 text-lg font-semibold text-slate-500 sm:text-xl">
+                                    {{currentUser.username??`@ ${currentUser.name}`}}</p>
+                                <div
+                                    class="mt-3 px-3 py-1  border border-[#d7e7ff] bg-[#eef6ff] rounded-full flex items-center gap-2  text-xs font-bold text-[#0b57d0]">
+                                    <i class="fa-solid fa-user-group  text-xs font-bold text-[#0b57d0]"></i>
+                                    Route Posts member
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="userInfo grid w-full grid-cols-3 gap-2 lg:w-130">
+                        <div class="rounded-2xl border border-slate-200 bg-white px-3 py-3 text-center sm:px-4 sm:py-4">
+                            <p class="text-[11px] font-bold uppercase  text-slate-500 sm:text-xs">Followers</p>
+                            <p class="mt-1 text-2xl font-black text-slate-900 sm:text-3xl">
+                                {{currentUser.followersCount}}</p>
+                        </div>
+
+                        <div class="rounded-2xl border border-slate-200 bg-white px-3 py-3 text-center sm:px-4 sm:py-4">
+                            <p class="text-[11px] font-bold uppercase  text-slate-500 sm:text-xs">Following</p>
+                            <p class="mt-1 text-2xl font-black text-slate-900 sm:text-3xl">
+                                {{currentUser.followingCount}}</p>
+                        </div>
+
+                        <div class="rounded-2xl border border-slate-200 bg-white px-3 py-3 text-center sm:px-4 sm:py-4">
+                            <p class="text-[11px] font-bold uppercase  text-slate-500 sm:text-xs">Bookmarks</p>
+                            <p class="mt-1 text-2xl font-black text-slate-900 sm:text-3xl">
+                                {{currentUser.bookmarksCount}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about mt-5 grid gap-4 lg:grid-cols-[1.3fr_.7fr]">
+                    <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                        <h4 class="text-sm font-extrabold text-slate-800">About</h4>
+                        <div class="mt-4 space-y-2 text-sm text-slate-600">
+                            <div class="flex items-baseline gap-2">
+                                <i class="fa-regular fa-envelope"></i>
+                                <p>{{currentUser.email}}</p>
+                            </div>
+                            <div class="flex items-baseline gap-2">
+                                <i class="fa-solid fa-user-group"></i>
+                                <p>Active on Route Posts</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid gap-3 sm:grid-cols-2  lg:grid-cols-1">
+                        <div class="rounded-2xl border border-[#dbeafe] bg-[#f6faff] px-4 py-3">
+                            <p class="text-xs font-bold uppercase text-[#1f4f96]">my posts</p>
+                            <p class="mt-1 text-2xl font-black text-slate-900">{{currentUserPosts.length}}</p>
+                        </div>
+                        <div class="rounded-2xl border border-[#dbeafe] bg-[#f6faff] px-4 py-3">
+                            <p class="text-xs font-bold uppercase text-[#1f4f96]">saved posts</p>
+                            <p class="mt-1 text-2xl font-black text-slate-900">{{currentUser.bookmarksCount}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @if(isImgModal==true){
+    <div class="modal fixed inset-0 z-80 bg-black/90 p-4 sm:p-8 flex items-center justify-center"
+        (click)="isImgModal=false">
+        <button class="absolute top-4 right-4 rounded-full bg-white/10 h-10 w-10 flex items-center justify-center "
+            (click)="isImgModal=false" (click)="$event.stopPropagation()">
+            <i class="fa-solid fa-xmark fa-md text-white"></i>
+        </button>
+        <img [src]="currentUser.photo" [alt]="currentUser.name" class="max-h-full max-w-full object-contain"
+            (click)="$event.stopPropagation()">
+    </div>
+    }
+    }
+
+
+
+</div>

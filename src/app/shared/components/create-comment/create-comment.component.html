@@ -1,0 +1,57 @@
+<form class=" bg-slate-50 p-2 rounded-xl relative" (submit)="createComment($event)">
+    <div class="w-full mb-4 border border-default-medium rounded-base bg-neutral-secondary-medium shadow-xs">
+        <div class="px-4 py-2 bg-neutral-secondary-medium rounded-t-base">
+            <label for="comment" class="sr-only">Your comment</label>
+            <textarea id="comment" rows="4"
+                class="block w-full px-0 text-sm text-heading bg-neutral-secondary-medium border-0 focus:ring-0 placeholder:text-body"
+                placeholder="Write a comment..." required [formControl]="commentBody"></textarea>
+        </div>
+        <div class="flex items-center px-3 py-2 border-t border-default-medium justify-between">
+            <div class="flex items-center gap-3">
+                <div class="emoji-picker" #emojiContainer>
+                    <button
+                        class="rounded-lg px-3 py-2  flex items-center gap-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100"
+                        (click)="toggleEmojiPicker()">
+                        <i class="fa-regular fa-face-smile" style="color: rgb(255, 212, 59);"></i>
+                        Feeling/activity</button>
+
+                    @if (showEmojiPicker) {
+                    <div class="absolute left-0  rounded-2xl bg-white border border-slate-200 shadow-2xl overflow-hidden z-40"
+                        (click)="$event.stopPropagation()">
+                        <emoji-mart #emojiMart (emojiSelect)="addEmoji($event)"></emoji-mart>
+                    </div>
+                    }
+                </div>
+
+                <label
+                    class="upload-phote flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100">
+                    <i class="fa-regular fa-image text-emerald-600"></i>
+                    <span class="hidden sm:inline">Photo/video</span>
+                    <input accept="image/*" class="hidden" type="file" (change)="onImageSelected($event)">
+                </label>
+            </div>
+
+            <button [disabled]="!isCommentCreated" type="submit"
+                class="text-center text-white bg-brand transition hover:bg-brand-strong shadow-xs font-medium text-sm p-2 
+           flex items-center justify-center rounded-full size-8 pe-3 disabled:cursor-not-allowed! disabled:hover:bg-blue-600 disabled:bg-blue-600">
+                @if(isCommentCreated){
+                <i class="fa-regular fa-paper-plane fa-rotate-by" style="--fa-rotate-angle: 45deg;"></i>
+                }
+                @else{
+                <i class="fa-solid fa-spinner fa-spin mx-auto text-center"></i>
+                }
+            </button>
+
+
+        </div>
+
+        @if(previewUrl!=null){
+        <div class="previewUploadedimg relative mt-2">
+            <img [src]="previewUrl" alt="Preview" class="max-h-60 w-full object-cover">
+            <button class="absolute top-2 right-2" (click)="removePreviewImg()">
+                <i class="fa-solid fa-circle-xmark text-black/60 fa-xl"></i>
+            </button>
+        </div>
+        }
+    </div>
+</form>

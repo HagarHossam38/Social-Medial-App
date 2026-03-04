@@ -1,0 +1,51 @@
+<div class="content border border-slate-200 bg-white rounded-2xl p-4 shadow-sm">
+    <div class="mb-3 flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2 ">
+            <i class="fa-solid fa-user-group text-[#1877f2]"></i>
+            <h3 class="text-base font-extrabold text-slate-900">Suggested Friends</h3>
+        </div>
+        <span
+            class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-bold text-slate-600">{{showedSuggested.length}}</span>
+    </div>
+    <div class="mb-3">
+
+        <form>
+
+            <div class="relative block">
+                <div class="absolute  left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
+                    <i class="fa-solid fa-magnifying-glass fa-sm"></i>
+                </div>
+                <input placeholder="Search friends..."
+                    class="w-full rounded-xl border border-slate-200 bg-slate-50 py-2 pl-9 pr-3 text-sm text-slate-700 outline-none focus:border-[#1877f2] focus:bg-white placeholder:text-sm placeholder:text-slate-700"
+                    value="">
+            </div>
+        </form>
+
+    </div>
+
+
+    <div class="space-y-3">
+        @for (friend of showedSuggested; track friend._id) {
+        <div class="border border-slate-200  rounded-xl p-2.5 ">
+            <div class="flex items-center justify-between gap-2">
+                <button class="flex items-center gap-2 rounded-lg p-1  transition hover:bg-slate-50 text-left">
+                    <img class="w-10 h-10 object-cover rounded-full" [src]="friend.photo" [alt]="friend.name">
+                    <div class="min-w-0">
+                        <p class="truncate text-sm font-bold text-slate-900 hover:underline">{{friend.name}}</p>
+                        <p class="truncate text-xs text-slate-500">{{friend.username ?? "Route User"}}</p>
+                    </div>
+                </button>
+                <button
+                    class="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-bold transition disabled:opacity-60 bg-[#e7f3ff] text-[#1877f2] hover:bg-[#d8ebff]">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Follow</button>
+            </div>
+        </div>
+        }
+
+
+    </div>
+    <button routerLink="/suggestions"
+        class="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-bold text-slate-700 transition hover:bg-slate-100">View
+        more</button>
+</div>

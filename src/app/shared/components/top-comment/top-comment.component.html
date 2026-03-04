@@ -1,0 +1,24 @@
+<div class="m-4 mt-0 p-3 rounded-2xl border border-slate-200 bg-slate-50" [hidden]="showAllComments">
+    @if(!showAllComments){
+    <p class="text-slate-500 text-[11px] font-bold mb-2 uppercase">Top Comment</p>
+    <div class="flex items-start gap-2">
+        <img [src]="postTopComment.commentCreator.photo??'/images/profile.png'"
+            [alt]="postTopComment.commentCreator.name" class="size-8 rounded-full object-cover">
+        <div class="flex-1 rounded-2xl px-3 py-2 bg-white">
+            <p class="text-xs font-bold text-slate-900">{{postTopComment.commentCreator.name}}</p>
+            <p class="mt-0.5 whitespace-pre-wrap text-sm text-slate-700">{{postTopComment.content}} </p>
+        </div>
+    </div>
+
+    }
+
+    <button [hidden]="showAllComments" class="mt-2  font-bold text-xs text-[#1877f2] hover:underline"
+        (click)="showAllComments=true">View all
+        comments</button>
+
+
+</div>
+
+@defer (when showAllComments){
+<app-post-comments [postId]="postTopComment.post" [postCommentsLenght]="1"></app-post-comments>
+}

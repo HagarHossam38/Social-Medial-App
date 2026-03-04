@@ -1,0 +1,148 @@
+<div class="grid xl:grid-cols-[240px_minmax(0,1fr)_300px] gap-4">
+    <aside class="hidden xl:block xl:sticky xl:top-21 h-fit space-y-3">
+        <div class="content border border-slate-200 bg-white rounded-2xl p-3 shadow-sm">
+            <button class="flex items-center gap-3 font-bold text-sm rounded-xl transition  px-3 py-2 w-full "
+                [class.bg-[#e7f3ff]]="activeButtonAsids === 'feed'"
+                [class.text-[#1877f2]]="activeButtonAsids === 'feed'"
+                [class.text-slate-700]="activeButtonAsids !== 'feed'"
+                [class.hover:bg-slate-100]="activeButtonAsids !== 'feed'" (click)="getAllPosts()">
+                <i class="fa-solid fa-newspaper"></i>
+                Feed
+            </button>
+
+            <button (click)="getMyPost()"
+                class="mt-1  flex items-center gap-3 font-bold text-sm rounded-xl transition  px-3 py-2 w-full text-slate-700 hover:bg-slate-100"
+                [class.bg-[#e7f3ff]]="activeButtonAsids === 'myPosts'"
+                [class.text-[#1877f2]]="activeButtonAsids === 'myPosts'"
+                [class.text-slate-700]="activeButtonAsids !== 'myPosts'"
+                [class.hover:bg-slate-100]="activeButtonAsids !== 'myPosts'">
+                <i class="fa-solid fa-wand-sparkles"></i>
+                My Posts
+            </button>
+            <button
+                class="mt-1  flex items-center gap-3 font-bold text-sm rounded-xl transition  px-3 py-2 w-full text-slate-700 hover:bg-slate-100"
+                routerLink="/">
+                <i class="fa-solid fa-earth-africa"></i>
+                Community
+            </button>
+
+            <button
+                class="mt-1  flex items-center gap-3 font-bold text-sm rounded-xl transition  px-3 py-2 w-full text-slate-700 hover:bg-slate-100"
+                routerLink="/">
+                <i class="fa-regular fa-bookmark"></i>
+                Saved
+            </button>
+        </div>
+    </aside>
+    <section class="space-y-4 min-w-0">
+        <!-- Nab posts -->
+        <div class="xl:hidden block border border-slate-200 bg-white rounded-2xl p-3 shadow-sm">
+            <div class="grid grid-cols-2 gap-2">
+                <button
+                    class="flex items-center gap-3 font-bold text-sm rounded-xl transition  px-3 py-2 w-full bg-slate-50  text-slate-700 hover:bg-slate-100"
+                    routerLink="/">
+                    <i class="fa-solid fa-newspaper"></i>
+                    Feed
+                </button>
+
+                <button
+                    class="mt-1  flex items-center gap-3 font-bold text-sm rounded-xl transition  px-3 py-2 w-full bg-slate-50 text-slate-700 hover:bg-slate-100"
+                    routerLink="/">
+                    <i class="fa-solid fa-wand-sparkles"></i>
+                    My Posts
+                </button>
+                <button
+                    class="mt-1  flex items-center gap-3 font-bold text-sm rounded-xl transition  px-3 py-2 w-full bg-slate-50 text-slate-700 hover:bg-slate-100"
+                    routerLink="/">
+                    <i class="fa-solid fa-earth-africa"></i>
+                    Community
+                </button>
+
+                <button
+                    class="mt-1  flex items-center gap-3 font-bold text-sm rounded-xl transition  px-3 py-2 w-full bg-slate-50 text-slate-700 hover:bg-slate-100"
+                    routerLink="/">
+                    <i class="fa-regular fa-bookmark"></i>
+                    Saved
+                </button>
+            </div>
+        </div>
+
+        <!-- Suggested Friends -->
+        <div class="space-y-3 xl:hidden">
+            <button #showFriendsBtn (click)="toggleShowFriends()" type="button"
+                class="inline-flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-3 text-left shadow-sm">
+                <span class="inline-flex items-center gap-2 text-sm font-extrabold text-slate-900">
+                    <i class="fa-solid fa-user-group text-[#1877f2]"></i>
+                    Suggested Friends
+                </span>
+                <span class="inline-flex items-center gap-2">
+                    <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-bold text-slate-600">pew</span>
+                    <span class="text-xs font-bold text-[#1877f2]">
+                        {{showFriends?"Hide":"Show"}}
+                    </span>
+                </span>
+            </button>
+            @defer (on interaction(showFriendsBtn)) {
+            @if (showFriends) {
+            <app-suggest-friends></app-suggest-friends>
+            }
+            }
+        </div>
+
+        <!--Posts-->
+        <div class="space-y-4">
+            <!--Create Post Div-->
+            <app-create-post></app-create-post>
+            @if(isPostsLoading){
+            <div class="space-y-2">
+                <article
+                    class="overflow-visible bg-white border border-slate-200 rounded-xl shadow-sm mb-4 p-3 space-y-3">
+                    <div class="flex items-center gap-3">
+                        <div class="size-10 animate-pulse rounded-full bg-slate-200 "></div>
+                        <div class="w-full space-y-1">
+                            <div class="w-5/10 animate-pulse rounded-xl bg-slate-200 h-3"></div>
+                            <div class="w-2/10 animate-pulse rounded-xl bg-slate-200 h-3"></div>
+                        </div>
+
+                    </div>
+                    <div class="w-8/10 animate-pulse rounded-xl bg-slate-200 h-8"></div>
+                    <div class="w-7/10 animate-pulse rounded-xl bg-slate-200 h-5"></div>
+                </article>
+                <article
+                    class="overflow-visible bg-white border border-slate-200 rounded-xl shadow-sm mb-4 p-3 space-y-3">
+                    <div class="flex items-center gap-3">
+                        <div class="size-10 animate-pulse rounded-full bg-slate-200 "></div>
+                        <div class="w-full space-y-1">
+                            <div class="w-5/10 animate-pulse rounded-xl bg-slate-200 h-3"></div>
+                            <div class="w-2/10 animate-pulse rounded-xl bg-slate-200 h-3"></div>
+                        </div>
+
+                    </div>
+                    <div class="w-8/10 animate-pulse rounded-xl bg-slate-200 h-8"></div>
+                    <div class="w-7/10 animate-pulse rounded-xl bg-slate-200 h-5"></div>
+                </article>
+            </div>
+            }
+            @else{
+
+            @for (loopPost of communityPostsList; track loopPost._id) {
+            <app-single-post [post]="loopPost"></app-single-post>
+            }
+            @empty {
+            <div class=" rounded-2xl border border-slate-200 bg-white p-10 text-center text-slate-500 shadow-sm">No
+                posts
+                yet. Be the first one to publish.</div>
+            }
+            }
+
+
+
+        </div>
+
+    </section>
+
+
+    <aside class="hidden xl:block xl:sticky xl:top-21 h-fit space-y-3">
+        <app-suggest-friends></app-suggest-friends>
+    </aside>
+</div>
